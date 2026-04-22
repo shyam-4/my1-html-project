@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSS Flexbox Demonstration</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0f0f13;
+      --steel: #2d2b45;
+      --sky: #7c6fcd;
+      --sky-light: #a096e0;
+      --sky-bg: #e83a3a;
+      --white: #ffffff;
+      --offwhite: #f5f4fc;
+      --text: #1e1b2e;
+      --muted: #6b6880;
+      --teal: #4950b8;
+      --card-shadow: 0 4px 20px rgba(100,90,180,0.12);
+      --radius: 14px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--navy);
+      padding: 24px 32px 32px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    nav h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 5vw, 2rem);
+      color: var(--white);
+      text-align: center;
+      letter-spacing: -0.5px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+    }
+
+    nav ul li a {
+      color: rgba(255,255,255,0.82);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+
+    nav ul li a:hover { color: var(--sky-light); }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--sky-bg);
+      padding: 64px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 16px;
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 6vw, 2.4rem);
+      color: var(--white);
+      line-height: 1.25;
+    }
+
+    .hero p {
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.92);
+      max-width: 380px;
+      line-height: 1.6;
+    }
+
+    .hero .btn {
+      margin-top: 8px;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 12px 28px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero .btn:hover { background: var(--steel); transform: translateY(-1px); }
+
+    /* ── FEATURES SECTION ── */
+    .features-section {
+      padding: 60px 24px;
+      background: var(--offwhite);
+    }
+
+    .features-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 4vw, 1.9rem);
+      text-align: center;
+      margin-bottom: 36px;
+      color: var(--text);
+    }
+
+    .features-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      overflow: hidden;
+    }
+
+    .card-img {
+      width: 100%;
+      background: #fde8e2;
+      padding: 28px 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      min-height: 170px;
+    }
+
+    /* Responsive Web Design illustration */
+    .rwd-illo {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .rwd-desktop {
+      width: 100px;
+      height: 68px;
+      background: #a13fc5;
+      border-radius: 6px 6px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .rwd-desktop::after {
+      content: '';
+      width: 60%;
+      height: 8px;
+      background: rgba(172, 22, 22, 0.25);
+      border-radius: 4px;
+      position: absolute;
+      bottom: 10px;
+    }
+
+    .rwd-tablet {
+      width: 60px;
+      height: 80px;
+      background: #9e0d40;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .rwd-mobile {
+      width: 36px;
+      height: 64px;
+      background: #88b10d;
+      border-radius: 6px;
+    }
+
+    .rwd-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: white;
+      text-align: center;
+      padding: 6px;
+      line-height: 1.2;
+    }
+
+    /* Alignment illustration */
+    .align-illo {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 24px 20px 20px;
+      gap: 20px;
+    }
+
+    .align-row {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    .align-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .align-icon {
+      width: 44px;
+      height: 44px;
+      background: #d4b896;
+      border-radius: 4px;
+      display: flex;
+      gap: 3px;
+      padding: 6px;
+      align-items: flex-end;
+    }
+
+    .align-icon.left { align-items: flex-start; }
+    .align-icon.right { align-items: flex-end; justify-content: flex-end; }
+    .align-icon.top { align-items: flex-start; }
+    .align-icon.bottom { align-items: flex-end; }
+
+    .align-bar {
+      width: 6px;
+      background: #6e450a;
+      border-radius: 2px;
+    }
+
+    .align-label {
+      font-size: 0.65rem;
+      color: #3b1111;
+      text-align: center;
+    }
+
+    .center-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .center-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .center-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .center-icon {
+      width: 48px;
+      height: 40px;
+      background: #d4b896;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    /* Card body */
+    .card-body {
+      padding: 20px 20px 24px;
+    }
+
+    .card-body h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+
+    .card-body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── FLEXIBLE LAYOUTS GRID ILLO ── */
+    .grid-illo {
+      width: 100%;
+      padding: 16px;
+      background: #f9f9f9;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+    .grid-cell {
+      border-radius: 5px;
+      overflow: hidden;
+      display: grid;
+      gap: 3px;
+      padding: 4px;
+      background: #e8e8e8;
+    }
+    .grid-block { border-radius: 3px; min-height: 10px; }
+
+    /* ── FLEXBOX PLAYGROUND ── */
+    .playground {
+      padding: 60px 24px;
+      background: var(--white);
+    }
+
+    .playground h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 4vw, 1.8rem);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .playground > p {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 32px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .control-group label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .control-group select {
+      padding: 7px 12px;
+      border: 1.5px solid #dde2e8;
+      border-radius: 7px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      background: var(--white);
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .control-group select:focus { border-color: var(--sky); }
+
+    .flex-box {
+      background: var(--offwhite);
+      border: 2px dashed #c8d0dc;
+      border-radius: var(--radius);
+      padding: 20px;
+      min-height: 140px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      transition: all 0.35s ease;
+    }
+
+    .flex-child {
+      background: var(--sky);
+      color: white;
+      font-weight: 600;
+      font-size: 0.85rem;
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.35s ease;
+    }
+
+    .flex-child:nth-child(2) { background: var(--teal); }
+    .flex-child:nth-child(3) { background: #e84393; }
+    .flex-child:nth-child(4) { background: #f5a623; height: 72px; }
+    .flex-child:nth-child(5) { background: #6c3fc5; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 28px 24px;
+      font-size: 0.85rem;
+    }
+
+    footer span { color: var(--sky-light); }
+
+    /* ── RESPONSIVE ── */
+    @media (min-width: 640px) {
+      nav ul { flex-direction: row; gap: 32px; }
+
+      .features-grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .card { flex: 0 0 calc(50% - 12px); max-width: 320px; }
+    }
+
+    @media (min-width: 900px) {
+      nav { flex-direction: row; justify-content: space-between; }
+      nav h1 { font-size: 1.6rem; }
+
+      .hero { padding: 100px 48px; }
+      .features-grid { flex-direction: row; align-items: flex-start; }
+      .card { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <h1>CSS Flexbox Demonstration</h1>
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Welcome to our Flexbox Demo</h2>
+    <p>Learn how to create flexible layouts with CSS Flexbox</p>
+    <button class="btn">Get Started</button>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section">
+    <h3>Our Features</h3>
+    <div class="features-grid">
+
+      <!-- Card 1: Responsive Design -->
+      <div class="card">
+        <div class="card-img">
+          <div class="rwd-illo">
+            <div class="rwd-desktop"><span class="rwd-label">RESPONSIVE<br>WEB DESIGN</span></div>
+            <div class="rwd-tablet"><span class="rwd-label">WEB</span></div>
+            <div class="rwd-mobile"></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4>Responsive Design</h4>
+          <p>Flexbox makes creating responsive layouts simple and intuitive.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Easy Alignment -->
+      <div class="card">
+        <div class="card-img" style="background:#f5f0e8; padding:0; min-height:auto;">
+          <div class="align-illo">
+            <div class="align-row">
+              <div class="align-item">
+                <div class="align-icon left">
+                  <div class="align-bar" style="height:28px;"></div>
+                  <div class="align-bar" style="height:18px;"></div>
+                  <div class="align-bar" style="height:24px;"></div>
+                </div>
+                <span class="align-label">Left align</span>
+              </div>
+              <div class="align-item">
+                <div class="align-icon right">
+                  <div class="align-bar" style="height:28px;"></div>
+                  <div class="align-bar" style="height:18px;"></div>
+                  <div class="align-bar" style="height:24px;"></div>
+                </div>
+                <span class="align-label">Right align</span>
+              </div>
+              <div class="align-item">
+                <div class="align-icon top" style="align-items:flex-start; justify-content:space-around;">
+                  <div class="align-bar" style="height:28px;"></div>
+                  <div class="align-bar" style="height:18px;"></div>
+                  <div class="align-bar" style="height:24px;"></div>
+                </div>
+                <span class="align-label">Top align</span>
+              </div>
+              <div class="align-item">
+                <div class="align-icon bottom" style="align-items:flex-end; justify-content:space-around;">
+                  <div class="align-bar" style="height:28px;"></div>
+                  <div class="align-bar" style="height:18px;"></div>
+                  <div class="align-bar" style="height:24px;"></div>
+                </div>
+                <span class="align-label">Bottom align</span>
+              </div>
+            </div>
+            <div class="center-row">
+              <span class="center-label">Center Alignment</span>
+              <div class="center-icons">
+                <div class="center-icon">
+                  <div class="align-bar" style="height:28px;"></div>
+                  <div class="align-bar" style="height:18px;"></div>
+                </div>
+                <div class="center-icon" style="flex-direction:column; height:52px; width:52px;">
+                  <div style="width:28px;height:6px;background:#8b6f47;border-radius:2px;"></div>
+                  <div style="width:18px;height:6px;background:#8b6f47;border-radius:2px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4>Easy Alignment</h4>
+          <p>Easily align items vertically and horizontally with minimal code.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Flexible Layouts -->
+      <div class="card">
+        <div class="card-img" style="background:#f9f9f9; padding:0; min-height:auto;">
+          <div class="grid-illo">
+            <!-- Row 1 -->
+            <div class="grid-cell" style="grid-template-columns:1fr 1fr; grid-template-rows:18px 14px;">
+              <div class="grid-block" style="background:#c8a0b8; grid-column:1/3;"></div>
+              <div class="grid-block" style="background:#e8a844;"></div>
+              <div class="grid-block" style="background:#a8c87c;"></div>
+            </div>
+            <div class="grid-cell" style="grid-template-columns:1fr 1fr; grid-template-rows:14px 18px;">
+              <div class="grid-block" style="background:#e8a844; grid-column:1/3;"></div>
+              <div class="grid-block" style="background:#a0b8d8;"></div>
+              <div class="grid-block" style="background:#e87860;"></div>
+            </div>
+            <div class="grid-cell" style="grid-template-columns:1fr; grid-template-rows:12px 10px 10px;">
+              <div class="grid-block" style="background:#e87860;"></div>
+              <div class="grid-block" style="background:#c8a0b8;"></div>
+              <div class="grid-block" style="background:#a8c87c;"></div>
+            </div>
+            <!-- Row 2 -->
+            <div class="grid-cell" style="grid-template-columns:1fr 2fr; grid-template-rows:16px 14px;">
+              <div class="grid-block" style="background:#e8a844;"></div>
+              <div class="grid-block" style="background:#a0c8a0;"></div>
+              <div class="grid-block" style="background:#c8a0b8; grid-column:1/3;"></div>
+            </div>
+            <div class="grid-cell" style="grid-template-columns:2fr 1fr; grid-template-rows:14px 16px;">
+              <div class="grid-block" style="background:#a8c87c;"></div>
+              <div class="grid-block" style="background:#e87860;"></div>
+              <div class="grid-block" style="background:#e8a844; grid-column:1/3;"></div>
+            </div>
+            <div class="grid-cell" style="grid-template-columns:1fr 1fr; grid-template-rows:16px 14px;">
+              <div class="grid-block" style="background:#a0b8d8; grid-column:1/3;"></div>
+              <div class="grid-block" style="background:#c8a0b8;"></div>
+              <div class="grid-block" style="background:#a8c87c;"></div>
+            </div>
+            <!-- Row 3 -->
+            <div class="grid-cell" style="grid-template-columns:1fr 1fr 1fr; grid-template-rows:12px 14px;">
+              <div class="grid-block" style="background:#e87860;"></div>
+              <div class="grid-block" style="background:#a8c87c; grid-column:2/4;"></div>
+              <div class="grid-block" style="background:#e8a844; grid-column:1/3;"></div>
+              <div class="grid-block" style="background:#c8a0b8;"></div>
+            </div>
+            <div class="grid-cell" style="grid-template-columns:1fr 1fr; grid-template-rows:12px 12px 10px;">
+              <div class="grid-block" style="background:#a0b8d8;"></div>
+              <div class="grid-block" style="background:#e8a844;"></div>
+              <div class="grid-block" style="background:#a8c87c; grid-column:1/3;"></div>
+              <div class="grid-block" style="background:#e87860; grid-column:1/3;"></div>
+            </div>
+            <div class="grid-cell" style="grid-template-columns:2fr 1fr; grid-template-rows:16px 14px;">
+              <div class="grid-block" style="background:#c8a0b8;"></div>
+              <div class="grid-block" style="background:#a8c87c;"></div>
+              <div class="grid-block" style="background:#e8a844; grid-column:1/3;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h4>Flexible Layouts</h4>
+          <p>Create fluid layouts that adapt to different screen sizes.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Built with <span>CSS Flexbox</span> &mdash; A modern layout system for the web</p>
+  </footer>
+
+
+</body>
+</html>
